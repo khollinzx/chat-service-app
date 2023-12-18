@@ -7,6 +7,7 @@ import {AuthContext} from "../store/auth-context";
 import Echo from "laravel-echo";
 import Socketio from "socket.io-client";
 export const ChatScreen = () => {
+    //store for storing user authenticate value
     const authCtx = useContext(AuthContext)
     const [messages, setMessages] = useState([]);
     // Use the useRoute hook to get the route object
@@ -14,6 +15,8 @@ export const ChatScreen = () => {
 
     // Access the 'contact' prop from the route.params object
     const { contact } = route.params;
+
+    //setting up ecgo for websocket
     const echo = new Echo({
         broadcaster: 'socket.io',
         host: 'http://localhost:9901/broadcasting/auth/guard=user',
@@ -26,9 +29,6 @@ export const ChatScreen = () => {
     });
 
     useEffect(() => {
-        echo.channel(`message.${contact.chatKey}`).listen('messageEvent', (data) => {
-            console.log('Event received:', data);
-        });
         // Fetch chat messages from the backend when the component mounts
         const fetchMessages = async () => {
             try {

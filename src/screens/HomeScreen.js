@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {View, FlatList, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import { ListItem } from 'react-native-elements';
-import contacts from '../providers/contact';
 import {authUser, getOwnerFriends} from "../providers/utils";
 import {AuthContext} from "../store/auth-context";
 
